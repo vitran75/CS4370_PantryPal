@@ -34,3 +34,6 @@ build/
 # .gitignore
 *.properties
 .env
+*.env
+application.properties
+

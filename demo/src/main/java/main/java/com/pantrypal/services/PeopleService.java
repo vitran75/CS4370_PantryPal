@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Service to manage user relationships such as follow/unfollow in the PantryPal app.
  */
-@Service
+@Service 
 public class PeopleService {
 
     private final DataSource dataSource;

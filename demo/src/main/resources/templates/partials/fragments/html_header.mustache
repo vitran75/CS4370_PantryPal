@@ -1,0 +1,33 @@
+<!-- partials/fragments/html_header.mustache -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartChef - PantryPal</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/4.2.0/mustache.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            M.AutoInit();
+        });
+        function followUser(username) {
+            fetch(`/follow/${username}`, { method: 'POST', headers: { 'X-CSRF-Token': '{{csrfToken}}' } })
+                .then(() => location.reload());
+        }
+        function unfollowUser(username) {
+            fetch(`/unfollow/${username}`, { method: 'POST', headers: { 'X-CSRF-Token': '{{csrfToken}}' } })
+                .then(() => location.reload());
+        }
+        function saveRecipe(recipeId) {
+            fetch(`/save-recipe/${recipeId}`, { method: 'POST', headers: { 'X-CSRF-Token': '{{csrfToken}}' } })
+                .then(() => M.toast({html: 'Recipe saved!'}));
+        }
+        function shareRecipe(recipeId) {
+            fetch(`/share-recipe/${recipeId}`, { method: 'POST', headers: { 'X-CSRF-Token': '{{csrfToken}}' } })
+                .then(() => M.toast({html: 'Recipe shared!'}));
+        }
+    </script>
+</head>
+

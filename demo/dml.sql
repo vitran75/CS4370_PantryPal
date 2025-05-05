@@ -28,7 +28,7 @@ UPDATE recipe SET heartCount = heartCount + 1 WHERE recipeId = ?;
 UPDATE recipe SET heartCount = heartCount - 1 WHERE recipeId = ?;
 
 -- Add Comment
--- URL: http://localhost:8081/recipe/{recipeId}/comment
+-- URL: http://localhost:8080/recipe/{recipeId}/comment
 INSERT INTO comment (recipeId, userId, commentDate, commentText) VALUES (?, ?, ?, ?);
 
 -- Increment Comment Count
@@ -36,7 +36,7 @@ INSERT INTO comment (recipeId, userId, commentDate, commentText) VALUES (?, ?, ?
 UPDATE recipe SET commentCount = commentCount + 1 WHERE recipeId = ?;
 
 -- Add Bookmark
--- URL: http://localhost:8081/recipe/{recipeId}/bookmark/{isAdd}
+-- URL: http://localhost:8080/recipe/{recipeId}/bookmark/{isAdd}
 INSERT INTO bookmark (recipeId, userId) VALUES (?, ?);
 
 -- Remove Bookmark
@@ -72,7 +72,7 @@ SELECT * FROM recipe WHERE userId = ? ORDER BY postDate DESC;
 INSERT INTO hashtag (hashTag, recipeId) VALUES (?, ?);
 
 -- Create a New Recipe
--- URL: http://localhost:8081/createrecipe
+-- URL: http://localhost:8080/createrecipe
 INSERT INTO recipe (userId, postDate, content, heartCount, commentCount) VALUES (?, ?, ?, ?, ?);
 
 -- Update User’s Most Recent Post Date
@@ -80,11 +80,11 @@ INSERT INTO recipe (userId, postDate, content, heartCount, commentCount) VALUES 
 UPDATE user SET mostRecentPostDate = ? WHERE userId = ?;
 
 -- Get Followable Users (Exclude Self)
--- URL: http://localhost:8081/people
+-- URL: http://localhost:8080/people
 SELECT * FROM user WHERE userId <> ?;
 
 -- Follow a User
--- URL: http://localhost:8081/{userId}/follow/{isFollow}
+-- URL: http://localhost:8080/{userId}/follow/{isFollow}
 INSERT INTO follow (followerUserId, followeeUserId) VALUES (?, ?);
 
 -- Check Follow Status
@@ -92,17 +92,17 @@ INSERT INTO follow (followerUserId, followeeUserId) VALUES (?, ?);
 SELECT * FROM follow WHERE followerUserId = ? AND followeeUserId = ?;
 
 -- Unfollow a User
--- URL: http://localhost:8081/{userId}/follow/{isFollow}
+-- URL: http://localhost:8080/{userId}/follow/{isFollow}
 DELETE FROM follow WHERE followerUserId = ? AND followeeUserId = ?;
 
 -- Get Comments on Recipe (Most Recent First)
--- URL: http://localhost:8081/recipe/{recipeId}
+-- URL: http://localhost:8080/recipe/{recipeId}
 SELECT * FROM comment WHERE recipeId = ? ORDER BY commentDate DESC;
 
 -- Authenticate User
--- URL: http://localhost:8081/login
+-- URL: http://localhost:8080/login
 SELECT * FROM user WHERE username = ?;
 
 -- Register New User
--- URL: http://localhost:8081/register
+-- URL: http://localhost:8080/register
 INSERT INTO user (username, password, firstName, lastName, mostRecentPostDate) VALUES (?, ?, ?, ?, ?);

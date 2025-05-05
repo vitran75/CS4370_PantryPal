@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS user (
     password VARCHAR(255) NOT NULL,
     firstName VARCHAR(255) NOT NULL,
     lastName VARCHAR(255) NOT NULL,
-    profileImagePath VARCHAR(255), -- NEW: avatar path
+    profileImagePath VARCHAR(255), 
     mostRecentPostDate DATETIME,
     PRIMARY KEY (userId),
     UNIQUE (username),
@@ -20,8 +20,13 @@ CREATE TABLE IF NOT EXISTS user (
 CREATE TABLE IF NOT EXISTS recipe ( 
     recipeId int auto_increment,
     userId int not null,
+    content VARCHAR(255) NOT NULL,
+    
+
+
     
 )
 
 
 
+ 

@@ -1,0 +1,28 @@
+<!-- partials/fragments/recipes_container.hbs -->
+{{#each recipes}}
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">{{this.title}} by <a href="/profile/{{this.author}}">{{this.author,加快 2px solid #000000;">{{this.author}}</a></span>
+            <p>{{this.content}}</p>
+            <div class="card-action">
+                <a href="#" onclick="likeRecipe('{{this.id}}')">Like ({{this.likes}})</a>
+                <a href="#" onclick="commentRecipe('{{this.id}}')">Comment ({{this.comments.length}})</a>
+                <a href="#" onclick="saveRecipe('{{this.id}}')">Save</a>
+            </div>
+            {{#if this.comments}}
+                <ul class="collection">
+                    {{#each this.comments}}
+                        <li class="collection-item">{{this.author}}: {{this.text}}</li>
+                    {{/each}}
+                </ul>
+            {{/if}}
+            <form method="post" action="/comment/{{this.id}}">
+                <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                <div class="input-field">
+                    <textarea id="comment-{{this.id}}" name="comment" class="materialize-textarea" placeholder="Add a comment..."></textarea>
+                </div>
+                <button type="submit" class="btn action-button">Comment</button>
+            </form>
+        </div>
+    </div>
+{{/each}}

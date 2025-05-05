@@ -1,0 +1,25 @@
+<!-- templates/profile.hbs -->
+<!DOCTYPE html>
+<html lang="en">
+{{> fragments/html_header}}
+<body>
+    {{> fragments/top_bar}}
+    <div class="container">
+        {{> fragments/error_message}}
+        <div class="card">
+            <div class="card-content">
+                <h4>{{user.firstName}} {{user.lastName}} ({{user.username}})</h4>
+                <p>{{user.bio}}</p>
+                <button class="btn action-button" onclick="window.location.href='/profile/edit'">Edit Profile</button>
+                {{#if isFollowing}}
+                    <button class="btn grey" onclick="unfollowUser('{{user.username}}')">Unfollow</button>
+                {{else}}
+                    <button class="btn action-button" onclick="followUser('{{user.username}}')">Follow</button>
+                {{/if}}
+            </div>
+        </div>
+        {{>   {{> fragments/recipes_container}}
+    </div>
+    {{> fragments/footer}}
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!-- templates/signup.hbs -->
+<!DOCTYPE html>
+<html lang="en">
+{{> fragments/html_header}}
+<body>
+    {{> fragments/top_bar}}
+    <div class="container center-align narrow">
+        {{> fragments/error_message}}
+        <form method="post" action="/signup">
+            <input type="hidden" name="_csrf" value="{{csrfToken}}">
+            <div class="input-field">
+                <label for="firstName">First Name</label>
+                <input id="firstName" name="firstName" class="short-input full" type="text" placeholder="First Name" required>
+            </div>
+            <div class="input-field">
+                <label for="lastName">Last Name</label>
+                <input id="lastName" name="lastName" class="short-input full" type="text" placeholder="Last Name" required>
+            </div>
+            <div class="input-field">
+                <label for="username">Username</label>
+                <input id="username" name="username" class="short-input full" type="text" placeholder="Username" required>
+            </div>
+            <div class="input-field">
+                <label for="password">Password</label>
+                <input id="password" name="password" class="short-input full" type="password" placeholder="Password" required minlength="8">
+            </div>
+            <div class="input-field">
+                <label for="passwordRepeat">Confirm Password</label>
+                <input id="passwordRepeat" name="passwordRepeat" class="short-input full" type="password" placeholder="Confirm Password" required minlength="8">
+            </div>
+            <button type="submit" class="btn action-button">Sign Up</button>
+        </form>
+    </div>
+    {{> fragments/footer}}
+</body>
+</html>

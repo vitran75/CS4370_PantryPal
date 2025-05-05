@@ -1,106 +1,54 @@
 package main.java.com.pantrypal.controllers;
 
-import main.java.com.pantrypal.models.ExpandedRecipe;
-import main.java.com.pantrypal.services.RecipeService;
-import main.java.com.pantrypal.services.UserService;
+import main.java.com.pantrypal.services.OpenAiService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.sql.SQLException;
 
 /**
- * Handles /recipe URL and sub-URLs (viewing, commenting, liking, bookmarking).
+ * Handles AI-powered recipe generation from user's available ingredients.
  */
 @Controller
-@RequestMapping("/recipe")
+@RequestMapping("/ai")
 public class RecipeController {
 
-    private final RecipeService recipeService;
-    private final UserService userService;
+    private final OpenAiService openAIService;
 
-    public RecipeController(RecipeService recipeService, UserService userService) {
-        this.recipeService = recipeService;
-        this.userService = userService;
+    public RecipeController(OpenAiService openAIService) {
+        this.openAIService = openAIService;
     }
 
     /**
-     * Displays a specific recipe and its comments.
+     * Display the AI recipe input form.
      */
-    @GetMapping("/{recipeId}")
-    public ModelAndView viewRecipe(@PathVariable("recipeId") String recipeId,
-                                   @RequestParam(name = "error", required = false) String error) {
-        ModelAndView mv = new ModelAndView("recipe_page");
-
-        try {
-            var recipe = recipeService.getExpandedRecipeById(recipeId);
-            mv.addObject("recipe", recipe);
-
-            if (recipe.getComments().isEmpty()) {
-                mv.addObject("isNoComments", true);
-            }
-        } catch (Exception e) {
-            mv.addObject("errorMessage", error != null ? error : "Error loading recipe.");
+    @GetMapping("/generate-recipe")
+    public ModelAndView showInputForm(@RequestParam(name = "error", required = false) String error) {
+        ModelAndView mv = new ModelAndView("ai_recipe_input");
+        if (error != null) {
+            mv.addObject("errorMessage", error);
         }
-
         return mv;
     }
 
     /**
-     * Submits a comment on a recipe.
+     * Handle AI recipe generation based on user-input ingredients.
      */
-    @PostMapping("/{recipeId}/comment")
-    public String postComment(@PathVariable("recipeId") String recipeId,
-                              @RequestParam(name = "comment") String commentText) throws SQLException {
+    @PostMapping("/generate-recipe")
+    public ModelAndView generateRecipe(@RequestParam("ingredients") String ingredients) {
+        ModelAndView mv = new ModelAndView("ai_recipe_result");
 
-        boolean success = recipeService.addCommentToRecipe(recipeId, commentText);
-
-        if (success) {
-            return "redirect:/recipe/" + recipeId;
+        try {
+            String recipe = openAIService.generateRecipe(ingredients);
+            mv.addObject("generatedRecipe", recipe);
+            mv.addObject("inputIngredients", ingredients);
+        } catch (Exception e) {
+            String errorMessage = URLEncoder.encode("Failed to generate recipe. Please try again.", StandardCharsets.UTF_8);
+            return new ModelAndView("redirect:/ai/generate?error=" + errorMessage);
         }
 
-        String message = URLEncoder.encode("Failed to post comment. Please try again.", StandardCharsets.UTF_8);
-        return "redirect:/recipe/" + recipeId + "?error=" + message;
-    }
-
-    /**
-     * Handles like/unlike (heart) on a recipe.
-     */
-    @GetMapping("/{recipeId}/heart/{isAdd}")
-    public String likeOrUnlikeRecipe(@PathVariable("recipeId") String recipeId,
-                                     @PathVariable("isAdd") Boolean isAdd) throws SQLException {
-
-        boolean success = isAdd
-                ? recipeService.addHeart(recipeId)
-                : recipeService.removeHeart(recipeId);
-
-        if (success) {
-            return "redirect:/recipe/" + recipeId;
-        }
-
-        String message = URLEncoder.encode("Failed to (un)like the recipe. Please try again.", StandardCharsets.UTF_8);
-        return "redirect:/recipe/" + recipeId + "?error=" + message;
-    }
-
-    /**
-     * Handles bookmarking/unbookmarking a recipe.
-     */
-    @GetMapping("/{recipeId}/bookmark/{isAdd}")
-    public String bookmarkOrUnbookmarkRecipe(@PathVariable("recipeId") String recipeId,
-                                             @PathVariable("isAdd") Boolean isAdd) throws SQLException {
-
-        String userId = userService.getLoggedInUser().getUserId();
-        boolean success = isAdd
-                ? recipeService.setBookmark(userId, recipeId)
-                : recipeService.removeBookmark(userId, recipeId);
-
-        if (success) {
-            return "redirect:/recipe/" + recipeId;
-        }
-
-        String message = URLEncoder.encode("Failed to (un)bookmark the recipe. Please try again.", StandardCharsets.UTF_8);
-        return "redirect:/recipe/" + recipeId + "?error=" + message;
+        return mv;
     }
 }

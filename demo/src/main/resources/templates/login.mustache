@@ -1,0 +1,24 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+{{> fragments/html_header}}
+<body> 
+{{fragments/top_bar}}
+<dive class="container center-align narrow">
+    {{>fragments/error_message}}
+    <form method = "post" action = "/login" >
+    <input type ="hidden" name ="_csrf" value "{{csrfToken}}>
+    <div class="input-field">
+        <label for ="username">Username</label>
+        <input id ="username" name="username" class ="short_input full" type ="text" placeholder="Username" required>
+        </div>
+        <div class="input-field">
+        <label for="password"> Password</label>
+        <input id="password" name="password" class="short-input full" type="password" placeholder="Password" required minlength="8">
+        </div>
+        <button tyupe="submit" cass"btn action-button">Login</button>
+        <a class="link" href ="/signup">Create an Account"</a>
+        </form >
+        </div>
+        {{ fragment/footer}}
+        </body> 
+        </html> 

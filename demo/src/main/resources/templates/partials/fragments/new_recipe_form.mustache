@@ -1,0 +1,14 @@
+<!-- partials/fragments/new_recipe_form.hbs -->
+{{#if user}}
+    <div class="card">
+        <div class="card-content">
+            <form method="post" action="/post-recipe">
+                <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                <div class="input-field">
+                    <textarea id="recipeContent" name="recipeContent" class="materialize-textarea" placeholder="Share a recipe..."></textarea>
+                </div>
+                <button type="submit" class="btn action-button">Post Recipe</button>
+            </form>
+        </div>
+    </div>
+{{/if}}

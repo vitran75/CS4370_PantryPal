@@ -1,0 +1,217 @@
+:root {
+    --primary-color: #d32f2f; /* Tomato red */
+    --secondary-color: #388e3c; /* Olive green */
+    --accent-color: #fff3e0; /* Cream */
+    --text-color: #212121; /* Dark gray */
+    --background-color: #fafafa; /* Light gray */
+    --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navigation */
+.nav-wrapper {
+    background-color: var(--primary-color) !important;
+    padding: 0 1rem;
+}
+
+.brand-logo {
+    font-weight: 700;
+    font-size: 1.8rem !important;
+}
+
+nav ul a {
+    color: var(--accent-color);
+    transition: color 0.3s ease;
+}
+
+nav ul a:hover {
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Container */
+.container {
+    padding: 2rem 1rem;
+    max-width: 1200px;
+}
+
+.narrow {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Forms */
+.input-field {
+    margin-bottom: 1.5rem;
+}
+
+.short-input {
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.full {
+    width: 100% !important;
+}
+
+input[type="text"],
+input[type="password"],
+textarea.materialize-textarea {
+    border: 1px solid var(--secondary-color) !important;
+    border-radius: 4px;
+    padding: 0.5rem;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+textarea.materialize-textarea:focus {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 1px 0 0 var(--primary-color) !important;
+}
+
+label {
+    color: var(--text-color);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* Buttons */
+.btn.action-button {
+    background-color: var(--secondary-color);
+    color: #ffffff;
+    border-radius: 4px;
+    text-transform: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.btn.action-button:hover {
+    background-color: #2e7d32;
+}
+
+.btn.grey {
+    background-color: #757575 !important;
+}
+
+.btn.grey:hover {
+    background-color: #616161 !important;
+}
+
+/* Cards */
+.card {
+    border-radius: 8px;
+    box-shadow: var(--card-shadow);
+    margin: 1rem 0;
+    background-color: #ffffff;
+}
+
+.card-content {
+    padding: 1.5rem !important;
+}
+
+.card-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.card-action a {
+    color: var(--secondary-color) !important;
+    margin-right: 1rem;
+    transition: color 0.3s ease;
+}
+
+.card-action a:hover {
+    color: var(--primary-color) !important;
+}
+
+/* Recipe List */
+.collection {
+    border: none !important;
+}
+
+.collection-item {
+    border-bottom: 1px solid #e0e0e0 !important;
+    padding: 0.75rem 1rem !important;
+    color: var(--text-color);
+}
+
+/* Error Message */
+.card.red.lighten-4 {
+    background-color: #ffcdd2 !important;
+    color: #b71c1c;
+}
+
+/* No Content Message */
+.card .card-content p {
+    color: #757575;
+    font-style: italic;
+}
+
+/* Footer */
+.page-footer {
+    background-color: var(--primary-color) !important;
+    padding-top: 2rem;
+}
+
+.page-footer h5 {
+    font-size: 1.6rem;
+}
+
+.page-footer p {
+    font-size: 1rem;
+}
+
+.footer-copyright {
+    background-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .brand-logo {
+        font-size: 1.4rem !important;
+    }
+
+    .short-input {
+        max-width: 100%;
+    }
+
+    .card-content {
+        padding: 1rem !important;
+    }
+}
+
+/* Accessibility */
+:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+a:focus {
+    outline: 2px solid var(--secondary-color);
+}
+
+/* Custom Link Styling */
+.link {
+    color: var(--secondary-color);
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+.link:hover {
+    color: var(--primary-color);
+}
+

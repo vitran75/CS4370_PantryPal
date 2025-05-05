@@ -1,0 +1,42 @@
+<!-- templates/recipe_generator.hbs -->
+<!DOCTYPE html>
+<html lang="en">
+{{> fragments/html_header}}
+<body>
+    {{> fragments/top_bar}}
+    <div class="container">
+        {{> fragments/error_message}}
+        <form method="post" action="/generate-recipe">
+            <input type="hidden" name="_csrf" value="{{csrfToken}}">
+            <div class="input-field">
+                <label for="ingredients">Ingredients (e.g., rice, eggs, tomatoes)</label>
+                <textarea id="ingredients" name="ingredients" class="materialize-textarea" placeholder="List your ingredients" required></textarea>
+            </div>
+            <button type="submit" class="btn action-button">Generate Recipe</button>
+        </form>
+        {{#if recipe}}
+            <div class="card">
+                <div class="card-content">
+                    <h4>{{recipe.title}}</h4>
+                    <p>{{recipe.description}}</p>
+                    <h5>Ingredients</h5>
+                    <ul class="collection">
+                        {{#each recipe.ingredients}}
+                            <li class="collection-item">{{this}}</li>
+                        {{/each}}
+                    </ul>
+                    <h5>Instructions</h5>
+                    <ol>
+                        {{#each recipe.instructions}}
+                            <li>{{this}}</li>
+                        {{/each}}
+                    </ol>
+                    <button class="btn action-button" onclick="saveRecipe('{{recipe.id}}')">Save to Cookbook</button>
+                    <button class="btn action-button" onclick="shareRecipe('{{recipe.id}}')">Share</button>
+                </div>
+            </div>
+        {{/if}}
+    </div>
+    {{> fragments/footer}}
+</body>
+</html>

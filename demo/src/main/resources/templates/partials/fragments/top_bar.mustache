@@ -1,0 +1,16 @@
+<!-- partials/fragments/top_bar.hbs -->
+<nav>
+    <div class="nav-wrapper teal">
+        <a href="/" class="brand-logo">SmartChef</a>
+        <ul class="right">
+            {{#if user}}
+                <li><a href="/profile/{{user.username}}">Profile</a></li>
+                <li><a href="/recipe-generator">Generate Recipe</a></li>
+                <li><a href="/logout">Logout</a></li>
+            {{else}}
+                <li><a href="/login">Login</a></li>
+                <li><a href="/signup">Sign Up</a></li>
+            {{/if}}
+        </ul>
+    </div>
+</nav>
